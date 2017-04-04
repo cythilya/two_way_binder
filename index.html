@@ -1,0 +1,50 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>TwoWayBinder</title>
+</head>
+<body>
+<p id="section">
+  <input id="input-1" class="group" value="hello, world!" data="adb" data-foo="bar" />
+  <input id="input-2" class="group" value="hello, world! hello, world!" data="123" data-foo="bar" />
+  <input id="input-5" class="group2" value="hello, world!" data="123" data-foo="bar" />
+  <div class="output-1">hello, world!</div>
+  <div class="output-1">hello, world!</div>
+  <div class="output-3">hello, world!</div>
+</p>
+<p>
+  <input id="input-3" class="group1" value="hello, world!" data="456" />
+  <input id="input-4" class="group1" value="hello, world!" data="789" />
+  <div class="output-2"></div>
+</p>
+<script src="twowaybinder.js"></script>
+<script>
+var dataObj = { value: 123456789, data: 'apple' , 'data-order': 0};
+var nodeList = document.querySelectorAll('[data-foo=bar]');
+var textNodes = document.getElementsByClassName('output-1');
+var binder = new TwoWayBinder(dataObj, nodeList, textNodes);
+
+binder.data.value = 999999999;
+
+//add new element
+var newdiv = document.createElement('input');
+newdiv.className = "group";
+newdiv.id = "input-6";
+newdiv.value = "asdfg";
+newdiv.data = "456";
+document.getElementById('section').appendChild(newdiv);
+
+var newdivArray = [];
+newdivArray.push(newdiv);
+binder.addInputNodes(newdivArray); //add additional input nodes
+
+binder.addInputNodes(document.getElementsByClassName('group2')); //add additional input nodes
+binder.addTextNodes(document.getElementsByClassName('output-3')); //add additional text nodes
+
+var dataObj1 = { value: 987654321, data: 'cat' };
+var nodeList1 = document.getElementsByClassName('group1');
+var binder1 = new TwoWayBinder(dataObj1, nodeList1);
+</script>
+</body>
+</html>
