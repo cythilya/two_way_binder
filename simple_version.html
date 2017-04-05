@@ -2,29 +2,24 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>TwoWayBinder</title>
+<title>two way binder</title>
 </head>
 <body>
 <p id="section">
-  <input id="input-1" class="group" value="hello, world!" data="adb" data-foo="bar" />
-  <div class="output-1">hello, world!</div>
+  <input class="input" value="hello, world!" />
+  <div class="output">hello, world!</div><br>
+  <button onClick="setData()">set data</button>
 </p>
-<script src="two-way-binder.js"></script>
+<script src="two-way-binder-simple.js"></script>
 <script>
-var obj = {
-	value: 123456789,
-	data: 'apple' ,
-	'data-order': 0,
-	p1: {
-		p2: 'this is p2'
-	}
-};
-
-var $input = document.querySelectorAll('[data-foo=bar]');
-var $text = document.getElementsByClassName('output-1');
+var obj = { value: 123456789 };
+var $input = document.getElementsByClassName('input');
+var $text = document.getElementsByClassName('output');
 var binder = new TwoWayBinder(obj, $input, $text);
 
-binder.data.value = 999999999;
+function setData() {
+  binder.data.value = 999999999;
+}
 </script>
 </body>
 </html>
